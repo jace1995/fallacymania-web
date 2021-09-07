@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react'
+import './App.css'
+import { useState } from 'react'
+import { io } from 'socket.io-client'
+import { Api } from './config'
 
-function App() {
+const server = io()
+
+export const App = () => {
+  const [cards, updateCards] = useState<string[]>([])
+
+  useEffect(() => {
+    server.on('connect', () => {
+      server.emit(Api.get_cards, (cards: string[]) => updateCards(cards))
+    })
+  }, [])
+
+  const changeCard = (oldCard: string) => server.emit(
+    Api.change_card,
+    oldCard,
+    (newCard: string) => updateCards(
+      cards => cards.map(
+        card => card === oldCard ? newCard : card
+      )
+    )
+  )
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      {
+        cards.map(card => (
+          <img
+            key={card}
+            src={`/cards/${card}.jpg`}
+            alt={card} 
+            onClick={() => changeCard(card)}
+          />
+        ))
+      }
     </div>
-  );
+  )
 }
-
-export default App;
