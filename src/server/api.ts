@@ -30,8 +30,11 @@ export const connectApi = (client: Socket) => {
   hands[client.id] = []
 
   client.on('disconnect', () => {
-    // deck = shuffle([...deck, ...hands[client.id]]) // замешать карты в колоду при отключении
     delete hands[client.id]
+    
+    if (!Object.keys(hands).length) {
+      deck = shuffle(cardsBase)
+    }
   })
 
   client.on(Api.get_cards, (cb: (cards: string[]) => void) => {
