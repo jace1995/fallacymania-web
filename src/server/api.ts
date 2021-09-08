@@ -30,7 +30,7 @@ export const connectApi = (client: Socket) => {
   hands[client.id] = []
 
   client.on('disconnect', () => {
-    deck = shuffle([...deck, ...hands[client.id]])
+    // deck = shuffle([...deck, ...hands[client.id]]) // замешать карты в колоду при отключении
     delete hands[client.id]
   })
 
