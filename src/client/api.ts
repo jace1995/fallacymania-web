@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react'
-import './App.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { io } from 'socket.io-client'
-import { Api } from './config'
+import { Api } from '../common/api'
 
 const server = io()
 
-export const App = () => {
+export const useCards = () => {
   const [cards, updateCards] = useState<string[]>([])
 
   useEffect(() => {
@@ -25,18 +23,5 @@ export const App = () => {
     )
   )
 
-  return (
-    <div className="container">
-      {
-        cards.map(card => (
-          <img
-            key={card}
-            src={`/cards/${card}.jpg`}
-            alt={card} 
-            onClick={() => changeCard(card)}
-          />
-        ))
-      }
-    </div>
-  )
+  return { cards, changeCard }
 }

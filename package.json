@@ -28,7 +28,7 @@
   "scripts": {
     "client": "react-scripts start",
     "build": "react-scripts build",
-    "server": "ts-node --project tsconfig-server.json server.ts",
+    "server": "ts-node --project src/server/tsconfig.json src/server/start.ts",
     "start": "concurrently \"npm run client\" \"npm run server\""
   },
   "eslintConfig": {
