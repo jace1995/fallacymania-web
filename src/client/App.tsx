@@ -1,11 +1,13 @@
 import React from 'react'
 import './App.css'
-import { useCards } from './api'
+import { useCards, useConnection } from './api'
 
 export const App = () => {
+  const connected = useConnection()
   const { cards, changeCard } = useCards()
 
   return (
+    connected ? (
     <div className="container">
       {
         cards.map(card => (
@@ -19,5 +21,8 @@ export const App = () => {
         ))
       }
     </div>
+    ) : (
+      <h1>Нет соединения с сервером</h1>
+    )
   )
 }

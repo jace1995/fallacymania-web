@@ -7,7 +7,11 @@ const app = express()
 const server = http.createServer(app)
 const io = new Server(server)
 
-const publicFolder = process.cwd() + '/public'
+const publicFolder = process.cwd() + (
+  process.env.NODE_ENV === 'production' ?
+  '/build' :
+  '/public'
+)
 
 app.use(express.static(publicFolder))
 

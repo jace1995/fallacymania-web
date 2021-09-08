@@ -4,6 +4,15 @@ import { Api } from '../common/api'
 
 const server = io()
 
+export const useConnection = () => {
+  const [connected, setConnected] = useState(false)
+
+  server.on('connect', () => setConnected(true))
+  server.on('disconnect', () => setConnected(false))
+
+  return connected
+}
+
 export const useCards = () => {
   const [cards, updateCards] = useState<string[]>([])
 
