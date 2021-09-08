@@ -1,2 +1,2 @@
 cd ..
-npm start
+npm run dev

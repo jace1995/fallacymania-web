@@ -30,8 +30,8 @@
     "build": "react-scripts build",
     "devserver": "nodemon --watch 'src' --ext '*' --ignore 'src/client' --exec 'ts-node --project src/server/tsconfig.json src/server/start.ts'",
     "server": "NODE_ENV=production ts-node --project src/server/tsconfig.json src/server/start.ts",
-    "start": "concurrently \"npm run client\" \"npm run devserver\"",
-    "prod": "npm run build && npm run server"
+    "dev": "concurrently \"npm run client\" \"npm run devserver\"",
+    "start": "npm run build && npm run server"
   },
   "eslintConfig": {
     "extends": [
